@@ -3,3 +3,22 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+.progress-bar{
+  width: 75%;
+}
+.fix {
+  margin-top: 200px;
+}
+.fix2{
+  margin-top: 180px;
+}
+.nav{
+  color: white;
+}
+.navbar-brand {
+  font-size: 20pt;
+}
+.nav-pic {
+  margin-left: 0px;
+  padding-left: 0px; 
+}
