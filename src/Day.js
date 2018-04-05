@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Day = (props) => {
-  console.log('props:', props)
 
   if(props){
   return(

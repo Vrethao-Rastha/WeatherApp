@@ -14,15 +14,32 @@ class App extends Component {
       "temp_min": '',
       "temp_max":'',
     ],
-    extWeather: [
+    extWeather: [],
 
-    ],
+    search: [],
+  }
+  search = (searchField) => {
+    console.log('searchField', searchField)
+    this.setState({
+      "search": searchField
+    })
   }
 
   componentDidMount() {
     Promise.all([
-    axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=85233,us&APPID=${process.env.REACT_APP_API_KEY}&units=imperial`),
-      axios.get(`http://api.openweathermap.org/data/2.5/forecast?zip=85233,us&APPID=${process.env.REACT_APP_API_KEY}&units=imperial`)
+    axios.get(`http://api.openweathermap.org/data/2.5/weather?q=gilbert,us&APPID=${process.env.REACT_APP_API_KEY}&units=imperial`),
+      axios.get(`http://api.openweathermap.org/data/2.5/forecast?q=gilbert,us,us&APPID=${process.env.REACT_APP_API_KEY}&units=imperial`)
+    ])
+      .then(data =>  {
+        let [ weather, extWeather ] = data
+        this.setState({weather: weather.data, extWeather: extWeather.data})
+    })
+  }
+
+  changeCity = (city)=>{
+    Promise.all([
+    axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${city},us&APPID=${process.env.REACT_APP_API_KEY}&units=imperial`),
+      axios.get(`http://api.openweathermap.org/data/2.5/forecast?q=${city},us,us&APPID=${process.env.REACT_APP_API_KEY}&units=imperial`)
     ])
       .then(data =>  {
         let [ weather, extWeather ] = data
@@ -31,12 +48,15 @@ class App extends Component {
   }
 
   render() {
+    console.log('this:', this.state.search)
+
     if(this.state.weather.weather) {
 
       return (
         <div>
-        <Header />
+        <Header changeCity={this.changeCity} search={ this.search } searchField={ this.state.searchField }/>
         <WeatherIndividual current={ this.state.weather.weather[0].main }  location={ this.state.weather.name } weather={ this.state.weather.main } />
+        <hr/>
         <WeatherFiveDay weather={ this.state.extWeather } />
       </div>
       );

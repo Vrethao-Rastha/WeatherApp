@@ -8,8 +8,9 @@ const WeatherIndividual = ({weather, location, current }) => {
       <div className="row">
         <img className="nav-pic col-md-2" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE57OQzgdXd04ZnA7b5PuhoTFg8bufsUs8HP7s01LPnr9WA5w7"/>
         <h1 className="col-md-4"> { location } </h1>
-          <h1 className="col-md-4">Current Conditions: { current } </h1>
+          <h1 className="col-md-6">Current Conditions: { current } </h1>
       </div>
+      <hr/>
       <div className="row">
 
 
